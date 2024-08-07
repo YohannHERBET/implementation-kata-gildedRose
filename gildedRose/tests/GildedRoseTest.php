@@ -16,7 +16,7 @@ class GildedRoseTest extends TestCase
     
     protected function setUp(): void
     {
-        $this->singleItem = new Item('Aged Brie', 2, 0);
+        $this->singleItem = new Item('Aged Brie', 2, 2);
 
         $this->items = [
             new Item('+5 Dexterity Vest', 10, 20),
@@ -99,6 +99,12 @@ class GildedRoseTest extends TestCase
     public function testIncreaseQualityForSingleItem(): void
     {
         $this->gildedRose->increaseQuality($this->singleItem);
+        $this->assertEquals(3, $this->singleItem->quality);
+    }
+
+    public function testDecreaseQualityForSingleItem(): void
+    {
+        $this->gildedRose->decreaseQuality($this->singleItem);
         $this->assertEquals(1, $this->singleItem->quality);
     }
 }
