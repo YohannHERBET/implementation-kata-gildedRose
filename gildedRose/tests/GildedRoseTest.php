@@ -10,11 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 class GildedRoseTest extends TestCase
 {
+    private Item $singleItem;
     private array $items;
     private GildedRose $gildedRose;
     
     protected function setUp(): void
     {
+        $this->singleItem = new Item('Aged Brie', 2, 0);
+
         $this->items = [
             new Item('+5 Dexterity Vest', 10, 20),
             new Item('Aged Brie', 2, 0),
@@ -26,6 +29,7 @@ class GildedRoseTest extends TestCase
             new Item('Backstage passes to a TAFKAL80ETC concert', 5, 49),
             new Item('Conjured Mana Cake', 3, 6),
         ];
+        
         $this->gildedRose = new GildedRose($this->items);
     }
     public function testUpdateQualityForTwoDays(): void
@@ -90,5 +94,11 @@ class GildedRoseTest extends TestCase
 
         $this->assertEquals(1, $this->items[8]->sellIn);
         $this->assertEquals(4, $this->items[8]->quality);
+    }
+
+    public function testIncreaseQualityForSingleItem(): void
+    {
+        $this->gildedRose->increaseQuality($this->singleItem);
+        $this->assertEquals(1, $this->singleItem->quality);
     }
 }

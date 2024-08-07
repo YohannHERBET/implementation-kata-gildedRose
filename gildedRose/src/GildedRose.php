@@ -30,27 +30,19 @@ final class GildedRose
             } else {
                 // sinon
                 // si la qualité de l'item est inférieure à 50
-                if ($item->quality < 50) {
-                    // alors la qualité de l'item est incrémentée
-                    $item->quality = $item->quality + 1;
-                    // si le nom de l'item est "Backstage passes to a TAFKAL80ETC concert"
-                    if ($item->name == 'Backstage passes to a TAFKAL80ETC concert') {
-                        // et que les jours restants pour vendre l'item sont inférieurs à 11
-                        if ($item->sellIn < 11) {
-                            // et que la qualité de l'item est inférieure à 50
-                            if ($item->quality < 50) {
-                                // alors la qualité de l'item est incrémentée
-                                $item->quality = $item->quality + 1;
-                            }
-                        }
-                        // si les jours restants pour vendre l'item sont inférieurs à 6
-                        if ($item->sellIn < 6) {
-                            // et que la qualité de l'item est inférieure à 50
-                            if ($item->quality < 50) {
-                                // alors la qualité de l'item est incrémentée
-                                $item->quality = $item->quality + 1;
-                            }
-                        }
+                // alors la qualité de l'item est incrémentée
+                $this->increaseQuality($item);
+                // si le nom de l'item est "Backstage passes to a TAFKAL80ETC concert"
+                if ($item->name == 'Backstage passes to a TAFKAL80ETC concert') {
+                    // et que les jours restants pour vendre l'item sont inférieurs à 11
+                    if ($item->sellIn < 11) {
+                        // et que la qualité de l'item est inférieure à 50
+                        $this->increaseQuality($item);
+                    }
+                    // si les jours restants pour vendre l'item sont inférieurs à 6
+                    if ($item->sellIn < 6) {
+                        // et que la qualité de l'item est inférieure à 50
+                        $this->increaseQuality($item);
                     }
                 }
             }
@@ -83,12 +75,15 @@ final class GildedRose
                 } else {
                     // sinon
                     // si la qualité de l'item est inférieure à 50
-                    if ($item->quality < 50) {
-                        // alors la qualité de l'item est incrémentée
-                        $item->quality = $item->quality + 1;
-                    }
+                    $this->increaseQuality($item);
                 }
             }
+        }
+    }
+    public function increaseQuality(Item $item): void
+    {
+        if ($item->quality < 50) {
+            $item->quality = $item->quality + 1;
         }
     }
 }
