@@ -107,4 +107,10 @@ class GildedRoseTest extends TestCase
         $this->gildedRose->decreaseQuality($this->singleItem);
         $this->assertEquals(1, $this->singleItem->quality);
     }
+
+    public function testHandleExpiredItemForSingleItem(): void
+    {
+        $this->gildedRose->handleExpiredItem($this->singleItem);
+        $this->assertEquals(3, $this->singleItem->quality);
+    }
 }
