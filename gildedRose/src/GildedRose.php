@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace GildedRose;
 
+use GildedRose\Model\ValueObject\Quality;
+use GildedRose\Model\ValueObject\SellIn;
+
 final class GildedRose
 {
     /**
@@ -17,60 +20,79 @@ final class GildedRose
     public function updateQuality(): void
     {
         foreach ($this->items as $item) {
-            if ($item->name != 'Aged Brie' and $item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-                $this->decreaseQuality($item);
-            } else {
-                $this->increaseQuality($item);
-            }
 
             if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                $item->sellIn = $item->sellIn - 1;
-            }
+                $sellIn = new SellIn($item->sellIn);
+                $quality = new Quality($item->quality);
+                
+                if ($item->name != 'Aged Brie' and $item->name != 'Backstage passes to a TAFKAL80ETC concert') {
+                    $quality = $this->decreaseQuality($item, $quality);
+                } else {
+                    $quality = $this->increaseQuality($item, $quality);
+                }
 
-            if ($item->sellIn < 0) {
-                $this->handleExpiredItem($item);
+                $sellIn = $sellIn->decrement();
+
+                if ($sellIn->getDays() < 0) {
+                    $quality = $this->handleExpiredItem($item, $quality);
+                }
+                $this->syncItem($item, $sellIn, $quality);
             }
         }
     }
-    public function increaseQuality(Item $item): void
+    public function increaseQuality(Item $item, Quality $quality): Quality
     {
-        if ($item->quality < 50) {
-            $item->quality = $item->quality + 1;
+        if ($quality->getValue() < 50) {
+            $quality = $quality->increase(1);
 
             if ($item->name == 'Backstage passes to a TAFKAL80ETC concert') {
                 if ($item->sellIn < 11) {
-                    $this->increaseQuality($item);
+                    $quality = $quality->increase(1);
                 }
                 if ($item->sellIn < 6) {
-                    $this->increaseQuality($item);
+                    $quality = $quality->increase(1);
                 }
             }
         }
+
+        return $quality;
     }
 
-    public function decreaseQuality(Item $item): void
+    public function decreaseQuality(Item $item, Quality $quality): Quality
     {
-        if ($item->quality > 0 && $item->name != 'Sulfuras, Hand of Ragnaros') {
-            $item->quality = $item->quality - 1;
+        if ($quality->getValue() > 0 && $item->name != 'Sulfuras, Hand of Ragnaros') {
+            $decrement = 1;
+
+            if ($item->name == 'Conjured Mana Cake') {
+                $decrement *= 2;
+            }
+
+            $quality = $quality->decrease($decrement);
         }
+
+        return $quality;
     }
 
-    public function handleExpiredItem(Item $item): void
+    public function handleExpiredItem(Item $item, Quality $quality): Quality
     {
         if ($item->name != 'Aged Brie') {
             if ($item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-                $this->decreaseQuality($item);
-                if ($item->name == 'Conjured Mana Cake') {
-                    $this->decreaseQuality($item);
-                    $this->decreaseQuality($item);
-                }
+                $quality = $this->decreaseQuality($item, $quality);
             } else {
-                $item->quality = 0;
+                $quality = new Quality(0);
             }
         } else {
-            if ($item->quality < 50) {
-                $item->quality++;
+            if ($quality->getValue() < 50) {
+                $quality = $quality->increase(1);
             }
         }
+
+        return $quality;
+    }
+
+    public function syncItem(Item $item, SellIn $sellIn, Quality $quality): void
+    {
+        $item->sellIn = $sellIn->getDays();
+        $item->quality = $quality->getValue();
     }
 }

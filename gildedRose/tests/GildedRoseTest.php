@@ -6,6 +6,7 @@ namespace Tests;
 
 use GildedRose\GildedRose;
 use GildedRose\Item;
+use GildedRose\Model\ValueObject\Quality;
 use PHPUnit\Framework\TestCase;
 
 class GildedRoseTest extends TestCase
@@ -63,7 +64,7 @@ class GildedRoseTest extends TestCase
         $this->assertEquals(50, $this->items[7]->quality);
 
         $this->assertEquals(2, $this->items[8]->sellIn);
-        $this->assertEquals(5, $this->items[8]->quality);
+        $this->assertEquals(4, $this->items[8]->quality);
 
         // Day 2
         $this->gildedRose->updateQuality();
@@ -93,32 +94,35 @@ class GildedRoseTest extends TestCase
         $this->assertEquals(50, $this->items[7]->quality);
 
         $this->assertEquals(1, $this->items[8]->sellIn);
-        $this->assertEquals(4, $this->items[8]->quality);
+        $this->assertEquals(2, $this->items[8]->quality);
     }
 
     public function testIncreaseQualityForSingleItem(): void
     {
-        $this->gildedRose->increaseQuality($this->singleItem);
-        $this->assertEquals(3, $this->singleItem->quality);
+        $quality = new Quality($this->singleItem->quality);
+        $newQuality = $this->gildedRose->increaseQuality($this->singleItem, $quality);
+        $this->assertEquals(3, $newQuality->getValue());
     }
 
     public function testDecreaseQualityForSingleItem(): void
     {
-        $this->gildedRose->decreaseQuality($this->singleItem);
-        $this->assertEquals(1, $this->singleItem->quality);
+        $quality = new Quality($this->singleItem->quality);
+        $newQuality = $this->gildedRose->decreaseQuality($this->singleItem, $quality);
+        $this->assertEquals(1, $newQuality->getValue());
     }
 
     public function testHandleExpiredItemForSingleItem(): void
     {
-        $this->gildedRose->handleExpiredItem($this->singleItem);
-        $this->assertEquals(3, $this->singleItem->quality);
+        $quality = new Quality($this->singleItem->quality);
+        $newQuality = $this->gildedRose->handleExpiredItem($this->singleItem, $quality);
+        $this->assertEquals(3, $newQuality->getValue());
     }
 
     public function testQualityDegradesTwiceAsFastAfterExpiration(): void
     {
         $items = [
-            new Item('+5 Dexterity Vest', 0, 10),
-            new Item('Elixir of the Mongoose', -1, 5),
+            new Item('+5 Dexterity Vest 2', 0, 10),
+            new Item('Elixir of the Mongoose 2', -1, 5),
             new Item('Conjured Mana Cake', 0, 10),
         ];
 
