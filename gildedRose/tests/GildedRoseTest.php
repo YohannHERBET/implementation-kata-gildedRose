@@ -113,4 +113,26 @@ class GildedRoseTest extends TestCase
         $this->gildedRose->handleExpiredItem($this->singleItem);
         $this->assertEquals(3, $this->singleItem->quality);
     }
+
+    public function testQualityDegradesTwiceAsFastAfterExpiration(): void
+    {
+        $items = [
+            new Item('+5 Dexterity Vest', 0, 10),
+            new Item('Elixir of the Mongoose', -1, 5),
+            new Item('Conjured Mana Cake', 0, 10),
+        ];
+
+        $gildedRose = new GildedRose($items);
+
+        $gildedRose->updateQuality();
+
+        $this->assertEquals(-1, $items[0]->sellIn);
+        $this->assertEquals(8, $items[0]->quality);
+
+        $this->assertEquals(-2, $items[1]->sellIn);
+        $this->assertEquals(3, $items[1]->quality);
+
+        $this->assertEquals(-1, $items[2]->sellIn);
+        $this->assertEquals(6, $items[2]->quality);
+    }
 }
