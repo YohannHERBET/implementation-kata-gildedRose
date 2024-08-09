@@ -20,7 +20,7 @@ final class GildedRose
     public function updateQuality(): void
     {
         foreach ($this->items as $item) {
-            if ($item->name != 'Aged Brie' && $item->name != 'Sulfuras, Hand of Ragnaros' && $item->name != 'Backstage passes to a TAFKAL80ETC concert' && $item->name != 'Conjured Mana Cake') {
+            if ($item->name != 'Sulfuras, Hand of Ragnaros' && $item->name != 'Backstage passes to a TAFKAL80ETC concert' && $item->name != 'Conjured Mana Cake') {
                 $commonItem = ItemFactory::createItem($item);
                 $commonItem->update();
                 $item->sellIn = $commonItem->sellIn;

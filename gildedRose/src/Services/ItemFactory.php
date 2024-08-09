@@ -7,14 +7,15 @@ namespace GildedRose\Services;
 use GildedRose\Domain\Model\Interfaces\ItemInterface;
 use GildedRose\Domain\Model\Item;
 use GildedRose\Domain\Model\CommonItem;
+use GildedRose\Domain\Model\AgedBrie;
 
 class ItemFactory
 {
     public static function createItem(Item $item): ItemInterface
     {
-        switch ($item->name) {
-            default:
-                return new CommonItem($item->name, $item->sellIn, $item->quality);
-        }
+        return match ($item->name) {
+            'Aged Brie' => new AgedBrie($item->name, $item->sellIn, $item->quality),
+            default => new CommonItem($item->name, $item->sellIn, $item->quality),
+        };
     }
 }
