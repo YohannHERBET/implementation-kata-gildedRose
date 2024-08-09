@@ -13,7 +13,8 @@ final class FactoryTest extends TestCase
 {
     public function testCreateItem(): void
     {
-        $item = ItemFactory::createItem('foo', 1, 2);
+        $singleItem = new Item('foo', 1, 2);
+        $item = ItemFactory::createItem($singleItem);
         $this->assertInstanceOf(Item::class, $item);
         $this->assertInstanceOf(CommonItem::class, $item);
     }
