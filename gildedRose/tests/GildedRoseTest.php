@@ -12,6 +12,7 @@ use GildedRose\Item;
 class GildedRoseTest extends TestCase
 {
     private array $item;
+    private Item $singleItem;
     private GildedRose $gildedRose;
     
     protected function setUp(): void
@@ -27,6 +28,8 @@ class GildedRoseTest extends TestCase
             new Item('Elixir of the Mongoose', 5, 7),
             new Item('+5 Dexterity Vest', 10, 20),
         ];
+
+        $this->singleItem = new Item('foo', 8, 10);
 
         $this->gildedRose = new GildedRose($this->item);
     }
@@ -60,5 +63,12 @@ class GildedRoseTest extends TestCase
 
         $this->assertEquals(9, $this->item[8]->sellIn);
         $this->assertEquals(19, $this->item[8]->quality);
+    }
+
+    public function testDecreaseSellIn()
+    {
+        $this->gildedRose->decreaseSellIn($this->singleItem);
+
+        $this->assertEquals(7, $this->singleItem->sellIn);
     }
 }
