@@ -4,25 +4,27 @@ declare(strict_types=1);
 
 namespace GildedRose\Domain\Model;
 use GildedRose\Domain\Model\Interfaces\ItemInterface;
+use GildedRose\Domain\Model\Item;
+use GildedRose\Domain\Model\ValueObjects\Quality;
 
 class BackstagePasses extends Item implements ItemInterface
 {
     public function update(): void
     {
-        $this->increaseQuality();
-
-        if ($this->sellIn < 11) {
-            $this->increaseQuality();
+        $this->quality = $this->quality->increase();
+                
+        if ($this->sellIn->getDays() < 11) {
+            $this->quality = $this->quality->increase();
         }
 
-        if ($this->sellIn < 6) {
-            $this->increaseQuality();
+        if ($this->sellIn->getDays() < 6) {
+            $this->quality = $this->quality->increase();
         }
 
-        $this->decreaseSellIn();
+        $this->sellIn = $this->sellIn->decrement();
 
-        if ($this->sellIn < 0) {
-            $this->quality = 0;
+        if ($this->sellIn->getDays() < 0) {
+            $this->quality = new Quality(0);
         }
     }
 }

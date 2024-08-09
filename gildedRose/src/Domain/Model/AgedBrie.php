@@ -9,7 +9,7 @@ class AgedBrie extends Item implements ItemInterface
 {
     public function update(): void
     {
-        $this->increaseQuality();
-        $this->decreaseSellIn();
+        $this->quality = $this->quality->increase();
+        $this->sellIn = $this->sellIn->decrement();
     }
 }

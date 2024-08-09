@@ -9,11 +9,11 @@ class CommonItem extends Item implements ItemInterface
 {
     public function update(): void
     {
-        $this->decreaseSellIn();
-        $this->decreaseQuality();
+        $this->sellIn = $this->sellIn->decrement();
+        $this->quality = $this->quality->decrease(1);
         
-        if ($this->sellIn < 0) {
-            $this->decreaseQuality();
+        if ($this->sellIn->getDays() < 0) {
+            $this->quality = $this->quality->decrease(1);
         }
     }
 }
