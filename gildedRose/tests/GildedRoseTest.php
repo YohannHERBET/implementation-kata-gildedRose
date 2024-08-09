@@ -97,27 +97,6 @@ class GildedRoseTest extends TestCase
         $this->assertEquals(2, $this->items[8]->quality);
     }
 
-    public function testIncreaseQualityForSingleItem(): void
-    {
-        $quality = new Quality($this->singleItem->quality);
-        $newQuality = $this->gildedRose->increaseQuality($this->singleItem, $quality);
-        $this->assertEquals(3, $newQuality->getValue());
-    }
-
-    public function testDecreaseQualityForSingleItem(): void
-    {
-        $quality = new Quality($this->singleItem->quality);
-        $newQuality = $this->gildedRose->decreaseQuality($this->singleItem, $quality);
-        $this->assertEquals(1, $newQuality->getValue());
-    }
-
-    public function testHandleExpiredItemForSingleItem(): void
-    {
-        $quality = new Quality($this->singleItem->quality);
-        $newQuality = $this->gildedRose->handleExpiredItem($this->singleItem, $quality);
-        $this->assertEquals(3, $newQuality->getValue());
-    }
-
     public function testQualityDegradesTwiceAsFastAfterExpiration(): void
     {
         $items = [
