@@ -11,6 +11,7 @@ class CommonItem extends Item implements ItemInterface
     {
         $this->decreaseSellIn();
         $this->decreaseQuality();
+        
         if ($this->sellIn < 0) {
             $this->decreaseQuality();
         }
