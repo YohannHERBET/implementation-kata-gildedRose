@@ -21,6 +21,25 @@ abstract class ItemUpdater
 
     abstract public function update(): void;
 
+    protected function increaseQuality(int $amount = 1): void
+    {
+        if ($this->quality->getValue() < 50) {
+            $this->quality = $this->quality->increase($amount);
+        }
+    }
+
+    protected function decreaseQuality(int $amount = 1): void
+    {
+        if ($this->quality->getValue() > 0) {
+            $this->quality = $this->quality->decrease($amount);
+        }
+    }
+
+    protected function decreaseSellIn(): void
+    {
+        $this->sellIn = $this->sellIn->decrement();
+    }
+
     protected function syncItem(): void
     {
         $this->item->quality = $this->quality->getValue();

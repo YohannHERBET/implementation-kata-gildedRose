@@ -6,14 +6,12 @@ class RegularItem extends ItemUpdater
 {
     public function update(): void
     {
-        if ($this->quality->getValue() > 0) {
-            $this->quality = $this->quality->decrease(1);
-        }
+        $this->decreaseQuality();
 
         $this->sellIn = $this->sellIn->decrement();
 
-        if ($this->sellIn->isExpired() && $this->quality->getValue() > 0) {
-            $this->quality = $this->quality->decrease(1);
+        if ($this->sellIn->isExpired()) {
+            $this->decreaseQuality();
         }
 
         $this->syncItem();

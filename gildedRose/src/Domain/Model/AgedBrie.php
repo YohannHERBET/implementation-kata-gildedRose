@@ -6,16 +6,12 @@ class AgedBrie extends ItemUpdater
 {
     public function update(): void
     {
-        if ($this->quality->getValue() < 50) {
-            $this->quality = $this->quality->increase(1);
-        }
+        $this->increaseQuality();
 
-        $this->sellIn = $this->sellIn->decrement();
+        $this->decreaseSellIn();
 
         if ($this->sellIn->isExpired()) {
-            if ($this->quality->getValue() < 50) {
-                $this->quality = $this->quality->increase(1);
-            }
+            $this->increaseQuality();
         }
 
         $this->syncItem();

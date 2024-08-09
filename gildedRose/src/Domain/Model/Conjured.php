@@ -6,18 +6,14 @@ class Conjured extends ItemUpdater
 {
     public function update(): void
     {
-        if ($this->quality->getValue() > 0) {
-            $this->quality = $this->quality->decrease(2);
-        }
-
-        $this->sellIn = $this->sellIn->decrement();
-
+        $this->decreaseQuality(2);
+    
+        $this->decreaseSellIn();
+    
         if ($this->sellIn->isExpired()) {
-            if ($this->quality->getValue() > 0) {
-                $this->quality = $this->quality->decrease(2);
-            }
+            $this->decreaseQuality(2);
         }
-
+    
         $this->syncItem();
     }
 }
