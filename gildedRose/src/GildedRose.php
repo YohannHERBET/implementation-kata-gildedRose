@@ -24,19 +24,15 @@ final class GildedRose
                     }
                 }
             } else {
-                if ($item->quality < 50) {
-                    $item->quality = $item->quality + 1;
-                    if ($item->name == 'Backstage passes to a TAFKAL80ETC concert') {
-                        if ($item->sellIn < 11) {
-                            if ($item->quality < 50) {
-                                $item->quality = $item->quality + 1;
-                            }
-                        }
-                        if ($item->sellIn < 6) {
-                            if ($item->quality < 50) {
-                                $item->quality = $item->quality + 1;
-                            }
-                        }
+                
+                $this->increaseQuality($item);
+                
+                if ($item->name == 'Backstage passes to a TAFKAL80ETC concert') {
+                    if ($item->sellIn < 11) {
+                        $this->increaseQuality($item);
+                    }
+                    if ($item->sellIn < 6) {
+                        $this->increaseQuality($item);
                     }
                 }
             }
@@ -53,9 +49,7 @@ final class GildedRose
                         $item->quality = $item->quality - $item->quality;
                     }
                 } else {
-                    if ($item->quality < 50) {
-                        $item->quality = $item->quality + 1;
-                    }
+                    $this->increaseQuality($item);
                 }
             }
         }
@@ -64,6 +58,13 @@ final class GildedRose
     {
         if ($item->name != 'Sulfuras, Hand of Ragnaros') {
             $item->sellIn = $item->sellIn - 1;
+        }
+    }
+
+    public function increaseQuality(Item $item): void
+    {
+        if ($item->quality < 50) {
+            $item->quality = $item->quality + 1;
         }
     }
 }
