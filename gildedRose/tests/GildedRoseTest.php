@@ -7,7 +7,7 @@ namespace Tests;
 use PHPUnit\Framework\TestCase;
 
 use GildedRose\GildedRose;
-use GildedRose\Item;
+use GildedRose\Domain\Model\Item;
 
 class GildedRoseTest extends TestCase
 {

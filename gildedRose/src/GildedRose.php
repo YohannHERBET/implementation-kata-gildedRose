@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace GildedRose;
 
+use GildedRose\Domain\Model\Item;
+
 final class GildedRose
 {
     /**
