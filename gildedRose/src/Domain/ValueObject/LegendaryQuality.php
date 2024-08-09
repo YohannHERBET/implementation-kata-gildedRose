@@ -15,12 +15,17 @@ class LegendaryQuality extends Quality
         $this->value = $value;
     }
 
-    public function increase(int $amount): Quality
+    public function getValue(): int
+    {
+        return $this->value;
+    }
+
+    public function increase(int $amount): LegendaryQuality
     {
         return new LegendaryQuality($this->value);
     }
 
-    public function decrease(int $amount): Quality
+    public function decrease(int $amount): LegendaryQuality
     {
         return new LegendaryQuality($this->value);
     }
