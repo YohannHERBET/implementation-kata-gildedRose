@@ -15,22 +15,20 @@ class Item implements \Stringable
 
     public function decreaseSellIn(): void
     {
-        if ($this->name != 'Sulfuras, Hand of Ragnaros') {
-            $this->sellIn = $this->sellIn - 1;
-        }
+        $this->sellIn -= 1;
     }
 
     public function increaseQuality(): void
     {
         if ($this->quality < 50) {
-            $this->quality = $this->quality + 1;
+            $this->quality++;
         }
     }
 
-    public function decreaseQuality(): void
+    public function decreaseQuality(int $amount = 1): void
     {
         if ($this->quality > 0) {
-            $this->quality = $this->quality - 1;
+            $this->quality -= $amount;
         }
     }
     public function __toString(): string

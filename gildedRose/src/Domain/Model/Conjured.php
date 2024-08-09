@@ -9,13 +9,11 @@ class Conjured extends Item implements ItemInterface
 {
     public function update(): void
     {
-        $this->decreaseQuality();
-        $this->decreaseQuality();
+        $this->decreaseQuality(2);
         $this->decreaseSellIn();
 
         if ($this->sellIn < 0) {
-            $this->decreaseQuality();
-            $this->decreaseQuality();
+          $this->decreaseQuality(2);
         }
     }
 }
