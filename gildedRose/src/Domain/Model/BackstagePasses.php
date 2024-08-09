@@ -1,8 +1,8 @@
 <?php
 
-namespace GildedRose\Model;
+namespace GildedRose\Domain\Model;
 
-use GildedRose\Model\ValueObject\Quality;
+use GildedRose\Domain\ValueObject\Quality;
 
 class BackstagePasses extends ItemUpdater
 {

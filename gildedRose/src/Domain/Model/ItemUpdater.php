@@ -1,10 +1,10 @@
 <?php
 
-namespace GildedRose\Model;
+namespace GildedRose\Domain\Model;
 
-use GildedRose\Model\ValueObject\Quality;
-use GildedRose\Model\ValueObject\SellIn;
-use GildedRose\Item;
+use GildedRose\Domain\ValueObject\Quality;
+use GildedRose\Domain\ValueObject\SellIn;
+use GildedRose\Domain\Model\Item;
 
 abstract class ItemUpdater
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace GildedRose\Model;
+namespace GildedRose\Domain\Model;
 
 class Conjured extends ItemUpdater
 {

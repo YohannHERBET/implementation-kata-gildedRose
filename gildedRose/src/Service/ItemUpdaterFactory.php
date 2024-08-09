@@ -1,14 +1,14 @@
 <?php
 
-namespace GildedRose;
+namespace GildedRose\Service;
 
-use GildedRose\Item;
-use GildedRose\Model\ItemUpdater;
-use GildedRose\Model\AgedBrie;
-use GildedRose\Model\BackstagePasses;
-use GildedRose\Model\Conjured;
-use GildedRose\Model\Sulfuras;
-use GildedRose\Model\RegularItem;
+use GildedRose\Domain\Model\Item;
+use GildedRose\Domain\Model\ItemUpdater;
+use GildedRose\Domain\Model\AgedBrie;
+use GildedRose\Domain\Model\BackstagePasses;
+use GildedRose\Domain\Model\Conjured;
+use GildedRose\Domain\Model\Sulfuras;
+use GildedRose\Domain\Model\RegularItem;
 
 class ItemUpdaterFactory
 {

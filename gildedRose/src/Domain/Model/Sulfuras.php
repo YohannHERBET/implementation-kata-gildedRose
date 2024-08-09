@@ -1,9 +1,9 @@
 <?php
 
-namespace GildedRose\Model;
+namespace GildedRose\Domain\Model;
 
-use GildedRose\Item;
-use GildedRose\Model\ValueObject\LegendaryQuality;
+use GildedRose\Domain\Model\Item;
+use GildedRose\Domain\ValueObject\LegendaryQuality;
 
 class Sulfuras extends ItemUpdater
 {

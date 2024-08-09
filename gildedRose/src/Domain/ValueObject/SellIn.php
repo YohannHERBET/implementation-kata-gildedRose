@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GildedRose\Model\ValueObject;
+namespace GildedRose\Domain\ValueObject;
 
 class SellIn
 {

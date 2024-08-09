@@ -5,20 +5,16 @@ declare(strict_types=1);
 namespace Tests;
 
 use GildedRose\GildedRose;
-use GildedRose\Item;
-use GildedRose\Model\ValueObject\Quality;
+use GildedRose\Domain\Model\Item;
 use PHPUnit\Framework\TestCase;
 
 class GildedRoseTest extends TestCase
 {
-    private Item $singleItem;
     private array $items;
     private GildedRose $gildedRose;
     
     protected function setUp(): void
     {
-        $this->singleItem = new Item('Aged Brie', 2, 2);
-
         $this->items = [
             new Item('+5 Dexterity Vest', 10, 20),
             new Item('Aged Brie', 2, 0),

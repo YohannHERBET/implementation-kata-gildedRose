@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use GildedRose\Model\ValueObject\Quality;
-use GildedRose\Model\ValueObject\SellIn;
+use GildedRose\Domain\ValueObject\Quality;
+use GildedRose\Domain\ValueObject\SellIn;
 use PHPUnit\Framework\TestCase;
 
 class ValueObjectTest extends TestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace GildedRose\Model;
+namespace GildedRose\Domain\Model;
 
 class AgedBrie extends ItemUpdater
 {
