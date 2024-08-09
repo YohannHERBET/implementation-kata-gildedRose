@@ -10,12 +10,14 @@ use GildedRose\Domain\Model\CommonItem;
 use GildedRose\Domain\Model\AgedBrie;
 use GildedRose\Domain\Model\Sulfuras;
 use GildedRose\Domain\Model\BackstagePasses;
+use GildedRose\Domain\Model\Conjured;
 
 class ItemFactory
 {
     public static function createItem(Item $item): ItemInterface
     {
         return match ($item->name) {
+            'Conjured Mana Cake' => new Conjured($item->name, $item->sellIn, $item->quality),
             'Backstage passes to a TAFKAL80ETC concert' => new BackstagePasses($item->name, $item->sellIn, $item->quality),
             'Sulfuras, Hand of Ragnaros' => new Sulfuras($item->name, $item->sellIn, $item->quality),
             'Aged Brie' => new AgedBrie($item->name, $item->sellIn, $item->quality),

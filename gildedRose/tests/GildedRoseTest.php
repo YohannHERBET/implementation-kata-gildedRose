@@ -64,25 +64,4 @@ class GildedRoseTest extends TestCase
         $this->assertEquals(9, $this->item[8]->sellIn);
         $this->assertEquals(19, $this->item[8]->quality);
     }
-
-    public function testDecreaseSellIn()
-    {
-        $this->gildedRose->decreaseSellIn($this->singleItem);
-
-        $this->assertEquals(7, $this->singleItem->sellIn);
-    }
-
-    public function testIncreaseQuality()
-    {
-        $this->gildedRose->increaseQuality($this->singleItem);
-
-        $this->assertEquals(11, $this->singleItem->quality);
-    }
-
-    public function testDescreaseQuality()
-    {
-        $this->gildedRose->decreaseQuality($this->singleItem);
-
-        $this->assertEquals(9, $this->singleItem->quality);
-    }
 }
